@@ -11,19 +11,27 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.wirelessconnect.ui.theme.WirelessConnectTheme
+import com.example.wirelessconnect.views.WifiDeviceScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val navController = rememberNavController()
             WirelessConnectTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    NavHost(navController = navController, startDestination = "wifidevicescreen"){
+                        composable(
+                            route = "wifidevicescreen"
+                        ) {
+                            WifiDeviceScreen(innerPadding)
+                        }
+                    }
                 }
             }
         }
